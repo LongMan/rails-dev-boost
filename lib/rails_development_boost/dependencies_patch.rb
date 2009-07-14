@@ -140,7 +140,7 @@ module RailsDevelopmentBoost
         begin
           module_cache << mod unless (mod.name || "").empty?
         rescue
-          puts "[BOOST] Unable to reload #{mod.inspect}"
+          puts "[BOOST] Unable to fetch module cache from #{mod.inspect}"
         end
       end
       
