@@ -136,7 +136,14 @@ module RailsDevelopmentBoost
     def fetch_module_cache
       return(yield(module_cache)) if module_cache.any?
       
-      ObjectSpace.each_object(Module) { |mod| module_cache << mod unless (mod.name || "").empty? }
+      ObjectSpace.each_object(Module) do |mod|
+        begin
+          module_cache << mod unless (mod.name || "").empty?
+        rescue
+          puts "[BOOST] Unable to fetch module cache from #{mod.inspect}"
+        end
+      end
+      
       begin
         yield module_cache
       ensure
